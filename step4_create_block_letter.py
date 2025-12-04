@@ -12,7 +12,8 @@ def create_block_letter_s(
     height: int,
     width: int,
     letter: str = "S",
-    font_size_ratio: float = 0.9
+    font_size_ratio: float = 0.95,
+    stroke_width: int = 0
 ) -> np.ndarray:
     """
     Create a block letter matching the specified image dimensions.
@@ -28,6 +29,10 @@ def create_block_letter_s(
     font_size_ratio : float
         Ratio of font size relative to the smaller dimension (0.0 to 1.0).
         Default 0.9 means the letter will be 90% of the smaller dimension.
+    stroke_width : int
+        Width of the stroke/outline to add to the letter in pixels.
+        Default 0 means no additional stroke (just the font's natural thickness).
+        Higher values create thicker/bolder letters.
     
     Returns
     -------
@@ -41,7 +46,7 @@ def create_block_letter_s(
     
     # Calculate font size based on the smaller dimension
     min_dimension = min(height, width)
-    font_size = int(min_dimension * font_size_ratio * 1.2)  # Increased by 20%
+    font_size = int(min_dimension * font_size_ratio * 1.15)  # Increased by 15%
     
     # Try to load a bold font
     # Different font paths for different operating systems
@@ -93,16 +98,39 @@ def create_block_letter_s(
             print("Using default bitmap font (may appear pixelated)")
     
     # Get text bounding box to center the letter
-    bbox = draw.textbbox((0, 0), letter, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
+    if font:
+        # Use textbox for better positioning
+        bbox = draw.textbbox((0, 0), letter, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+    else:
+        text_width = width // 2
+        text_height = height // 2
+ 
     
     # Calculate centered position
-    x = (width - text_width) // 2 - bbox[0]
-    y = (height - text_height) // 2 - bbox[1]
+    x = (width - text_width) // 2 - (bbox[0] if font else 0)
+    y = (height - text_height) // 2 - (bbox[1] if font else 0)
     
     # Draw the letter in black (0 = black in grayscale mode)
-    draw.text((x, y), letter, fill=0, font=font)
+    # Add stroke width if specified
+    if stroke_width > 0:
+        try:
+            # Try using stroke_width parameter (Pillow 8.0+)
+            draw.text((x, y), letter, fill=0, font=font, 
+                     stroke_width=stroke_width, stroke_fill=0)
+        except TypeError:
+            # Fallback for older PIL versions: draw multiple offset copies
+            # Draw outline by drawing letter at multiple offsets
+            for dx in range(-stroke_width, stroke_width + 1):
+                for dy in range(-stroke_width, stroke_width + 1):
+                    if dx*dx + dy*dy <= stroke_width*stroke_width:  # Circular pattern
+                        draw.text((x + dx, y + dy), letter, fill=0, font=font)
+            # Draw main letter on top
+            draw.text((x, y), letter, fill=0, font=font)
+    else:
+        # No stroke, just draw the letter normally
+        draw.text((x, y), letter, fill=0, font=font)
     
     # Convert PIL image to numpy array and normalize to [0, 1]
     # PIL uses 0-255, we want 0-1 where 0 = black, 1 = white
@@ -114,6 +142,8 @@ def create_block_letter_s(
     # This matches the requirement: black letter (0.0) on white background (1.0)
     
     print(f"Created block letter '{letter}' with size {font_size}px")
+    if stroke_width > 0:
+        print(f"Stroke width: {stroke_width} pixels")
     print(f"Block letter image shape: {img_array.shape}")
     print(f"Letter dimensions: {text_width}x{text_height} pixels")
     

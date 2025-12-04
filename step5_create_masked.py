@@ -53,6 +53,7 @@ def create_masked_stipple(
     masked_stipple = stipple_img.copy()
     
     # Identify mask regions: where mask is below threshold (dark/mask area)
+    # This stimulates systematic missing data mechanism - the "S" mask of selection bias
     # In these regions, we want to remove stipples by setting to white (1.0)
     mask_regions = mask_img < threshold
     

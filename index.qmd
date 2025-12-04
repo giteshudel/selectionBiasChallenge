@@ -1,10 +1,19 @@
 ---
-title: "Selection Bias & Missing Data Challenge"
-subtitle: "Creating a Statistics Meme"
+title: " 🎨 Selection Bias & Missing Data Demonstration"
+# 🎨 Selection Bias & Missing Data Challenge
+subtitle:  "A Statistics Meme"
+author: "Gitesh Kubal"
+date: December 3, 2025
 format:
-  html: default
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: "Contents"
+    number-sections: false
+    theme: cosmo
 execute:
-  echo: false
+  echo: true
   eval: true
 ---
 
@@ -26,7 +35,7 @@ img_path = 'Dog.jpeg'  # Example image - replace with your own image
 gray_image = prepare_image(img_path, max_size=512)
 
 # Display the prepared image
-fig, ax = plt.subplots(figsize=(6.5, 5))
+fig, ax = plt.subplots(figsize=(6.5, 5.5))
 ax.imshow(gray_image, cmap='gray', vmin=0, vmax=1)
 ax.axis('off')
 ax.set_title('Step 1: Prepared Image', fontsize=14, fontweight='bold', pad=10)
@@ -60,7 +69,7 @@ stipple_pattern, samples = create_stipple(
 )
 
 # Display the stippled image
-fig, ax = plt.subplots(figsize=(6.5, 5))
+fig, ax = plt.subplots(figsize=(6.5, 5.5))
 ax.imshow(stipple_pattern, cmap='gray', vmin=0, vmax=1)
 ax.axis('off')
 ax.set_title('Step 2: Stippled Image', fontsize=14, fontweight='bold', pad=10)
@@ -90,7 +99,7 @@ tonal_image, average_tones, tonal_stats = create_tonal(
 )
 
 # Display the box-averaged tonal image with text annotations
-fig, ax = plt.subplots(figsize=(6.5, 5))
+fig, ax = plt.subplots(figsize=(6.5, 5.5))
 
 # Show box-averaged tonal image
 ax.imshow(tonal_image, cmap='gray', vmin=0, vmax=1)
@@ -140,16 +149,19 @@ print(f"  - Use mid_tone_center around {tonal_stats['mean']:.2f} to emphasize av
 #| include: false
 
 # UNCOMMENT AND USE THIS ONCE YOU'VE WRITTEN step4_create_block_letter.py:
+import importlib
+import step4_create_block_letter
+importlib.reload(step4_create_block_letter)
 from step4_create_block_letter import create_block_letter_s
  
 # # Get image dimensions
 h, w = gray_image.shape
 # 
 # # Create block letter S
-block_letter = create_block_letter_s(h, w, letter="S", font_size_ratio=0.9)
+block_letter = create_block_letter_s(h, w, letter="S", font_size_ratio=0.95, stroke_width=10)
 # 
 # # Display the block letter
-fig, ax = plt.subplots(figsize=(6.5, 5))
+fig, ax = plt.subplots(figsize=(6.5, 5.5))
 ax.imshow(block_letter, cmap='gray', vmin=0, vmax=1)
 ax.axis('off')
 ax.set_title('Step 4: Selection Bias (Block Letter S)', fontsize=16, fontweight='bold', pad=10)
@@ -177,7 +189,7 @@ masked_stipple = create_masked_stipple(
 )
 # 
 # # Display the masked image
-fig, ax = plt.subplots(figsize=(6.5, 5))
+fig, ax = plt.subplots(figsize=(6.5, 5.5))
 ax.imshow(masked_stipple, cmap='gray', vmin=0, vmax=1)
 ax.axis('off')
 ax.set_title('Step 5: Masked Stippled Image (Estimate)', fontsize=14, fontweight='bold', pad=10)
@@ -208,7 +220,12 @@ create_statistics_meme(
  )
 ```
 
-## Final Statistics Meme: Selection Bias Visualization
+## The Meme
+
+This visualization demonstrates selection bias, a fundamental challenge in statistical inference. Using a four-panel layout, the meme illustrates how systematic patterns of missing data (represented by the letter "S") can distort our understanding of reality. 
+
+When data is missing in a non-random, systematic way, our estimates become biased, offering a skewed perspective rather than the true picture. The meme shows how this can happen in real-world data collection and analysis.
+
 
 ```{python}
 #| label: final-meme
@@ -219,5 +236,38 @@ from IPython.display import Image, display
 display(Image("my_statistics_meme.png"))
 ```
 
-This meme demonstrates selection bias by showing how systematic missing data patterns distort our understanding of reality. The original image (Reality) represents the true population, while the stippled version (Your Model) shows our data collection through sampling. When selection bias removes data points in a systematic "S" pattern—represented by the block letter mask—the resulting estimate becomes biased and no longer accurately represents the true population. Just as missing data in real-world studies can lead to incorrect conclusions when it follows a non-random pattern, this visual metaphor illustrates how systematic exclusion creates a distorted view of reality.
+## Understanding of Selection Bias
 
+This meme illustrates selection bias by showing how systematic missing data can distort understanding. The "Reality" image is the true population, while the stippled "Your Model" represents biased data collection. Removing data points in a systematic "S" pattern results in biased estimate and no longer represents the true population, just as missing data in real-world studies can lead to incorrect conclusions.
+
+Selection bias skews our results because the chosen sample is not the representative of the whole population. In mathematical terms, this means our biased estimate (θ̂) is systematically different from the true population parameter (θ). The bias is defined as:
+
+
+**Bias(θ̂) = E[θ̂] - θ**
+
+The visual representation of selection bias in the meme follows a four-panel structure:
+
+- **Reality (Original Image)** - Represents the true parameter θ we’re trying to estimate.
+- **Your Model (Stippled Image)** - Shows our sampling mechanism—which observations we collect.
+- **Selection Bias (Block Letter "S" Mask)** - The systematic filter that determines which data points are observed.
+- **Estimate (Masked Stippled Image)** - Our estimate θ̂ based only on the selected data.
+
+The reality panel represents the true population distribution. It serves as the unobservable parameter of interest in statistical inference. 
+
+The Your Model panel represents the observed sample data. Each stipple point corresponds to a sampled observation from the population. 
+
+The Selection Bias Panel represents a systematic missing data mechanism. This mechanism opoerates according to a non-random pattern. It creates a dependency between the probability of observation and unobserved characteristics. 
+
+The Estimate panel reveals a resulting biased estimator. This bias arises because, under a Missing Not At Random (MNAR) mechanism, the observed data form a non-representative subsample of the population. This non-representative sampling causes the empirical distribution to systematically deviate from the true population distribution.
+
+Informative missingness introduces bias into parameter estimates and undermines the validity of subsequent statistical inference. A key principle in missing data theory dictates that when the missing data mechanism (MNAR, or missing not at random) depends on unobserved values, standard methods assuming missing at random (MAR) or missing completely at random (MCAR) yield biased and inconsistent results.
+
+## Conclusion
+
+Selection bias is a significant issue in statistical analysis because it produces a systematic error that can lead to invalid or inaccurate conclusions if not properly managed. This bias occurs when the study sample does not accurately represent the target population, distorting the true association between exposure and outcomes.
+
+In real-world applications, this challenge is illustrated by scenarios such as:
+
+- **Survey non-response:** When response rates vary systematically by demographic characteristics, meaning certain groups are underrepresented in the final dataset.
+- **Clinical trials loss to follow-up:** When participants drop out of a study because of factors related to the treatment's effects (e.g., severe side effects), potentially skewing the results about the treatment's efficacy and safety.
+- **Observational studies sampling issues:** When both the exposure and outcome influence an individual's likelihood of being selected for the study sample, creating a spurious association (or obscuring a real one).

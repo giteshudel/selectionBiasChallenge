@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Gitesh Kubal">
+<meta name="dcterms.date" content="2025-12-03">
 
-<title>Selection Bias &amp; Missing Data Challenge</title>
+<title>🎨 Selection Bias &amp; Missing Data Demonstration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,28 +36,52 @@ ul.task-list li input[type="checkbox"] {
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-a74871fe4945b66d259aafc266475145.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#the-meme" id="toc-the-meme" class="nav-link active" data-scroll-target="#the-meme">The Meme</a></li>
+  <li><a href="#understanding-of-selection-bias" id="toc-understanding-of-selection-bias" class="nav-link" data-scroll-target="#understanding-of-selection-bias">Understanding of Selection Bias</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Selection Bias &amp; Missing Data Challenge</h1>
-<p class="subtitle lead">Creating a Statistics Meme</p>
+<h1 class="title">🎨 Selection Bias &amp; Missing Data Demonstration</h1>
+<p class="subtitle lead">A Statistics Meme</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gitesh Kubal </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 3, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -65,8 +91,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="final-statistics-meme-selection-bias-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="final-statistics-meme-selection-bias-visualization">Final Statistics Meme: Selection Bias Visualization</h2>
+<section id="the-meme" class="level2">
+<h2 class="anchored" data-anchor-id="the-meme">The Meme</h2>
+<p>This visualization demonstrates selection bias, a fundamental challenge in statistical inference. Using a four-panel layout, the meme illustrates how systematic patterns of missing data (represented by the letter “S”) can distort our understanding of reality.</p>
+<p>When data is missing in a non-random, systematic way, our estimates become biased, offering a skewed perspective rather than the true picture. The meme shows how this can happen in real-world data collection and analysis.</p>
 <div id="cell-final-meme" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div id="final-meme" class="quarto-figure quarto-figure-center anchored">
@@ -77,7 +105,34 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p>This meme demonstrates selection bias by showing how systematic missing data patterns distort our understanding of reality. The original image (Reality) represents the true population, while the stippled version (Your Model) shows our data collection through sampling. When selection bias removes data points in a systematic “S” pattern—represented by the block letter mask—the resulting estimate becomes biased and no longer accurately represents the true population. Just as missing data in real-world studies can lead to incorrect conclusions when it follows a non-random pattern, this visual metaphor illustrates how systematic exclusion creates a distorted view of reality.</p>
+</section>
+<section id="understanding-of-selection-bias" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-of-selection-bias">Understanding of Selection Bias</h2>
+<p>This meme illustrates selection bias by showing how systematic missing data can distort understanding. The “Reality” image is the true population, while the stippled “Your Model” represents biased data collection. Removing data points in a systematic “S” pattern results in biased estimate and no longer represents the true population, just as missing data in real-world studies can lead to incorrect conclusions.</p>
+<p>Selection bias skews our results because the chosen sample is not the representative of the whole population. In mathematical terms, this means our biased estimate (θ̂) is systematically different from the true population parameter (θ). The bias is defined as:</p>
+<p><strong>Bias(θ̂) = E[θ̂] - θ</strong></p>
+<p>The visual representation of selection bias in the meme follows a four-panel structure:</p>
+<ul>
+<li><strong>Reality (Original Image)</strong> - Represents the true parameter θ we’re trying to estimate.</li>
+<li><strong>Your Model (Stippled Image)</strong> - Shows our sampling mechanism—which observations we collect.</li>
+<li><strong>Selection Bias (Block Letter “S” Mask)</strong> - The systematic filter that determines which data points are observed.</li>
+<li><strong>Estimate (Masked Stippled Image)</strong> - Our estimate θ̂ based only on the selected data.</li>
+</ul>
+<p>The reality panel represents the true population distribution. It serves as the unobservable parameter of interest in statistical inference.</p>
+<p>The Your Model panel represents the observed sample data. Each stipple point corresponds to a sampled observation from the population.</p>
+<p>The Selection Bias Panel represents a systematic missing data mechanism. This mechanism opoerates according to a non-random pattern. It creates a dependency between the probability of observation and unobserved characteristics.</p>
+<p>The Estimate panel reveals a resulting biased estimator. This bias arises because, under a Missing Not At Random (MNAR) mechanism, the observed data form a non-representative subsample of the population. This non-representative sampling causes the empirical distribution to systematically deviate from the true population distribution.</p>
+<p>Informative missingness introduces bias into parameter estimates and undermines the validity of subsequent statistical inference. A key principle in missing data theory dictates that when the missing data mechanism (MNAR, or missing not at random) depends on unobserved values, standard methods assuming missing at random (MAR) or missing completely at random (MCAR) yield biased and inconsistent results.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Selection bias is a significant issue in statistical analysis because it produces a systematic error that can lead to invalid or inaccurate conclusions if not properly managed. This bias occurs when the study sample does not accurately represent the target population, distorting the true association between exposure and outcomes.</p>
+<p>In real-world applications, this challenge is illustrated by scenarios such as:</p>
+<ul>
+<li><strong>Survey non-response:</strong> When response rates vary systematically by demographic characteristics, meaning certain groups are underrepresented in the final dataset.</li>
+<li><strong>Clinical trials loss to follow-up:</strong> When participants drop out of a study because of factors related to the treatment’s effects (e.g., severe side effects), potentially skewing the results about the treatment’s efficacy and safety.</li>
+<li><strong>Observational studies sampling issues:</strong> When both the exposure and outcome influence an individual’s likelihood of being selected for the study sample, creating a spurious association (or obscuring a real one).</li>
+</ul>
 </section>
 
 </main>
